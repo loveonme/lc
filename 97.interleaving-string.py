@@ -15,20 +15,18 @@ class Solution(object):
             dp.append(res)
 
         dp[0][0] = True
-        print dp
         for i in range(len(s1)):
-            if s1[i] == s3[i]:
-                dp[i+1][0] = True
+            if s1[i] != s3[i]:
+                break
+            dp[0][i+1] = True
         for i in range(len(s2)):
-            if s2[i] == s3[i]:
-                dp[0][j+1] = True        
-        print dp
-        for i in range(1,len(s1)+1):
-            for j in range(1,len(s2)+1):
-                dp[i][j] = (dp[i-1][j] and s1[i - 1] == s3[i+j-2]) or (dp[i][j-1] and s2[j - 1] == s3[i+j-2])
-                print dp[i-1][j],dp[i][j],dp[i][j-1]
-        print dp
-        return dp[len(s1)][len(s2)]
+            if s2[i] != s3[i]:
+                break
+            dp[i+1][0] = True    
+        for i in range(0,len(s2)):
+            for j in range(0,len(s1)):
+                dp[i+1][j+1] = (dp[i][j+1] and s2[i] == s3[i+j+1]) or (dp[i+1][j] and s1[j] == s3[i+j+1])
+        return dp[len(s2)][len(s1)]
 
 
 
