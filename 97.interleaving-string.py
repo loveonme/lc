@@ -1,10 +1,26 @@
 class Solution(object):
-    def isInterleave_v1(self, s1, s2, s3):
+    def isInterleave(self, s1, s2, s3):
         '''
-        aaa,bbb,ababab
+        a aa,b bb,a babab
         
-        '''
-
+        ''' 
+        if len(s1) + len(s2) != len(s3):
+            return False
+        dp = [[False]*(len(s1)+1)]*(len(s2)+1)
+        dp[0][0] = True
+        print dp
+        for i in range(len(s1)):
+            if s1[i] == s3[i]:
+                dp[i][0] = True
+        for i in range(len(s2)):
+            if s2[i] == s3[i]:
+                dp[0][j] = True        
+        print dp
+        for i in range(1,len(s1)+1):
+            for j in range(1,len(s2)+1):
+                dp[i][j] = (dp[i-1][j] and s1[i - 1] == s3[i+j-2]) or (dp[i][j-1] and s2[j - 1] == s3[i+j-2])
+        print dp
+        return dp[len(s1)][len(s2)]
 
 
 
